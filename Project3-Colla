@@ -1,0 +1,476 @@
+//Project3-Collantes.java
+   String author="Ana Collantes-Project3";
+
+Monkey monkey;  ////for monkey class
+
+Ladder ladder;
+
+Flock birds;  /// class for flock 
+
+
+   float moonX,moonY;
+   float horizon;
+   //Nugget trophy;
+   //Hero idol;
+   float idolX,idolY,idoldx,idoldy;
+   float trophyX,trophyY;
+   float giantX, giantY, giantdx, giantdy;
+   //Monster giant;
+
+float dogX,dogY;
+   int dogspeed=1;
+
+int idolscore;
+   int giantscore;
+
+
+   int X1=50;  ///for head
+
+int X2=48; ///Left side eye
+   int X3=60; ///right side eye
+
+int X4=55;/// nose
+   int X5=68;///nose
+   int X6=65;
+
+int X7=46;////mouth line
+   int X8=55;//mouth line
+
+int X9=35;  /// EARS by left eye
+   int X10=32;  /// EARS by left eye
+   int X11=45;   /// EARS by left eye
+
+int X12=50; /// EARS by right eye
+   int X13=56;  /// EARS by right eye
+   int X14=58;   /// EARS by right eye
+
+
+  int x=800;
+  int y=700;
+
+
+  void setup() {
+     size(x,y);
+     horizon= 0;
+     //idol= new Hero();
+     //giant= new Monster();
+     
+
+   ladder=new Ladder();//trophy= new Nugget();
+      
+        
+      
+     monkey=new Monkey();   //// for monkey class
+    
+     birds=new Flock();
+    
+   }
+
+void draw() {
+     background(23,37,77);
+     scene();
+     action();
+     giant();
+     idol();
+     trophy();
+     dog();
+     ladder.drawLadder();
+     messages();
+      
+      
+     
+     
+     monkey.drawMonkey();  ////for monkey class
+     monkey.moveMonkey();  ////for monkey class
+     birds.drawBirds();
+     birds.moveBirds();
+   
+   }
+   void scene() {
+     fill(17,49,16);
+     stroke(0);
+     rect(horizon,width/3.4,x,y);
+     //Moon
+     noStroke();
+     fill(165,170,165);
+     stroke(0);
+     ellipse(moonX,moonY,70,70);
+     fill(227);
+     ellipse(moonX+5,moonY-5,10,10);
+     ellipse(moonX-9,moonY+7,5,5);
+     ellipse(moonX+13,moonY+12,15,15);
+     ellipse(moonX-13,moonY-12,7,7);
+     //Tree
+     fill(46,29,29);
+     rect(x/1.34,y/2.4,40,135); ///tree
+     fill(23,72,16);
+     ellipse(x/1.30,y/2.90,150,150);
+     //House
+     fill(129,51,38);
+     rect(horizon,y/3.50,width/4.45, height/4.65);
+     triangle(horizon,y/3.50,x/8.80,y/5.50,x/4.40,y/3.50);
+     fill(22,27,52);
+     stroke(232,230,227);
+     rect(27,220,120,50);
+     line(27,245,147,245);
+     line(65,220,65,270);
+     line(110,220,110,270);
+     //Door
+     fill(26,23,23);
+     noStroke();
+     rect(60,300,60,50);
+     fill(255);
+     ellipse(65,330,5,5);
+     
+     
+   }
+   void action(){
+     //Moon
+     if (moonX>width) {
+       moonX=0;
+    }
+    
+     moonX=moonX+1;
+     moonY=40;
+    
+    //Idol
+    if (idolX>width) {
+      idolX=0;
+    }
+    idolX=idolX+1;
+    idolX=idolX+idoldx;
+    idolY=idolY+idoldy;
+    
+    //Trophy
+    idolX=idolX+(trophyX-idolX)/50;
+    idolY=idolY+(trophyY-idolY)/50;
+    
+    if(trophyX>width) {
+      trophyX=0;
+    }
+    trophyX=trophyX+2;
+    
+    if (trophyY>height) {
+      trophyY=width/3;
+    }
+    trophyY=trophyY+2;
+
+ //Giant
+    /*if (giantX>width) {
+      giantX=0;
+    }
+    giantX=giantX+5;
+    giantX=giantX+giantdx;
+    giantY=giantY+giantdy; */
+    
+    giantX=giantX+(idolX-giantX)/60;   ///Giant follows Idol
+    giantY=giantY+(idolY-giantY)/60;
+    
+    /*if(giantX>width) {
+      giantX=0;
+    }
+    giantX=giantX+1;*/
+    
+   }
+
+void giant() {                       ////CREATE GIANT AND LET FOLLW
+     fill(0);
+     ellipse(giantX,giantY,80,120);
+     //Eyes
+     fill(255);
+     ellipse(giantX-13,giantY-20,10,30);
+     ellipse(giantX+13,giantY-20,10,30);
+     
+     if(dist(giantX,giantY,idolX,idolY)<60){ ///GIANT SCORE CATCHING IDOL//
+       giantscore=giantscore+50;
+       idolX=random(0,600);
+       idolY=random(0,width);
+       giantX=random(0,600);
+       giantY=random(0,width);
+     }
+   }
+
+void idol() {
+     fill(129,92,108);
+     rect(idolX,idolY,30,40);                      ///Body
+     
+     fill(255);
+     fill(252,242,247);
+     ellipse(idolX+15,idolY-13,35,35);             ///Head
+     
+     fill(255);
+     stroke(0);
+     ellipse(idolX+8,idolY-16,12,12);             ///LeftEye
+     
+     fill(0);
+     ellipse(idolX+8,idolY-15,6,6);
+     
+     fill(255);
+     stroke(0);
+     
+     ellipse(idolX+20,idolY-16,12,12);             ///RightEye
+     
+     fill(0);
+     ellipse(idolX+20,idolY-15,6,6);
+     
+     fill(0);
+     ellipse(idolX+15,idolY-2,7,7);                ///Mouth
+   }
+
+/*void giant() {                       ////CREATE GIANT AND LET FOLLW
+     fill(0);
+     ellipse(giantX,giantY,80,120);
+     //Eyes
+     fill(255);
+     ellipse(giantX-13,giantY-20,10,30);
+     ellipse(giantX+13,giantY-20,10,30);*/
+     
+     
+
+
+   void trophy() {
+     fill(245,255,185);
+     ellipse(trophyX,trophyY,20,20);
+     
+     if(dist(idolX,idolY,trophyX,trophyY)<80){ ////MAKES SCORE SHOW UP//
+       idolscore=idolscore+100;
+       trophyX=random(0,600);
+       trophyY=random(0,height);
+       idolX=random(0,600);
+       idolY=random(0,height);
+     }
+     
+   }
+
+void dog() {
+     fill(77,34,34);
+     rect(dogX,dogY,45,25); //body
+     ellipse(dogX+X1,dogY,30,30);  //head
+     
+     if(dogX>idolX) { X1=0;X2=0; X3=-12; X4=-7; X5=-20; X6=-17;X7=2; X8=-11;
+   X9=-14;  /// EARS by left eye
+   X10=-10;  /// EARS by left eye
+   X11=-5;   /// EARS by left eye  top one middle
+
+X12=4; /// EARS by right eye
+   X13=10;  /// EARS by right eye
+   X14=12;   /// EARS by right eye
+    
+    
+     /////dog's head moves as the idol goes from left to right
+     }if (dogX<idolX) { X1=50;X2=48; X3=60;X4=55; X5=68; X6=65;X7=46; X8=55;
+   X9=35;  /// EARS by left eye
+   X10=32;  /// EARS by left eye
+   X11=45;   /// EARS by left eye
+
+X12=50; /// EARS by right eye
+   X13=56;  /// EARS by right eye
+   X14=58;   /// EARS by right eye
+     }
+     
+     fill(255);  ///eyes
+     ellipse(dogX+X2,dogY-5,10,10);
+     ellipse(dogX+X3,dogY-5,10,10);
+     fill(0);
+     ellipse(dogX+X2,dogY-5,5,5);
+     ellipse(dogX+X3,dogY-5,5,5);
+     
+    // if(dogX>idolX) { X2=0; X3=-12;   /////eyes goes left to right as it follows idol
+     //} if(dogX<idolX) { X2=48; X3=60;
+    // }
+     
+     fill(77,34,34); ///nose
+     triangle(dogX+X4,dogY+2,dogX+X5,dogY+4, dogX+X4,dogY+10);
+     fill(0);
+     ellipse(dogX+X6,dogY+5,4,4);
+     
+    // if(dogX>idolX) { X4=-7; X5=-20; X6=-17;  ////nose 
+    // } if(dogX<idolX) { X4=55; X5=68; X6=65;
+    // }
+     
+     stroke(0);        ///mouth
+     line(dogX+X7,dogY+11,dogX+X8,dogY+11);
+     
+    // if(dogX>idolX) { X7=2; X8=-11;   /////mouth line
+    // } if(dogX<idolX) { X7=46; X8=55;
+    // }
+     
+     
+     fill(77,34,34);  //ears+++++++++
+     triangle(dogX+X9,dogY-6,dogX+X10,dogY-25,dogX+X11,dogY-15); //by left eye
+     triangle(dogX+X12,dogY-16,dogX+X13,dogY-29,dogX+X14,dogY-15); //by right eye
+      
+      /////EARS move as it follows idol from left to right with head
+    /////////////////// if(dogX>idolX) {   X9=30; X10=36; X11=38;   X12=10; X13=7; X14=20;  /////for ears
+    /////////////////// } if(dogX<idolX) { X9=35; X10=32; X11=45;   X12=50; X13=56; X14=58;
+    ///////////////////}
+     
+     //legs
+     noStroke();
+     rect(dogX+34,dogY+20,7,20);//front leg bigger
+     rect(dogX+27,dogY+20,6,14);///front leg smaller
+     rect(dogX+4,dogY+20,6,14); ///back smaller leg
+     rect(dogX+11,dogY+20,7,20);//back bigger leg
+     
+     
+     dogX=dogX+dogspeed;
+     dogY=dogY+dogspeed;
+     
+     dogX=dogX+(idolX-dogX)/80;   ///DOG follows Idol
+     dogY=dogY+(idolY-dogY)/80;
+     
+   }
+
+/*void latter() {
+     fill(193,193,119);
+     rect(700,0,8,700); //// on the left
+     rect(790,0,8,700); /// on the right
+     
+    /* rect(700,15,90,8); // starting from the top to the bottom
+     rect(700,55,90,8);
+     rect(700,95,90,8);
+     rect(700,135 
+     
+   } */
+
+void messages() {
+     fill(255);
+     textSize(14);
+     text(author, 10,690);
+     
+     text("Idol Score="+idolscore,620,10);
+     
+     text("Giant Score="+giantscore,620,30);
+   }
+
+class Ladder {
+     float ladderX1;  //// 
+     float ladderY1;
+     
+
+  
+   Ladder() {
+     ladderX1=x/1.15;
+     ladderY1= y-20;
+    
+   }
+
+void drawLadder() {
+     
+    stroke(0);
+     fill(193,193,119);
+     rect(x/1.15,horizon,8,x/1);
+     rect(x/1.02,horizon,8,x/1);
+     
+   for(float i=ladderY1;i>0;i=i-30) { stroke(0);
+     fill(193,193,119);  
+      rect(ladderX1,i,x/9,9);
+    
+   }
+ }
+
+  }
+
+class Monkey {
+   float monkeyX;
+   float monkeyY;
+   int speedmY;
+   int armY1;
+   int armY2;
+
+Monkey() {
+    monkeyX=x/1.08;
+    monkeyY=y/1.07;
+    armY1=50;
+    armY2=20;
+    //legY1=-63;
+    //legY2=-54;
+    speedmY=0;
+
+}
+
+void drawMonkey() {
+     fill(88,16,16);
+     stroke(70,12,12);
+     ellipse(monkeyX,monkeyY,40,60); /// body
+     
+     ellipse(monkeyX,monkeyY-30,25,25);
+     
+     noStroke();
+     rect(monkeyX+13,monkeyY-20,5,-armY1); /// right arms
+     
+     rect(monkeyX-14,monkeyY-20,5,-armY2); /// left arm
+     
+     rect(monkeyX-14,monkeyY+20,5,armY1); //// left leg
+     
+     rect(monkeyX+11,monkeyY+20,5, armY2); //// right leg
+     
+     
+     
+    
+   }
+   
+
+
+   void moveMonkey() {
+     if (key== 'u' && keyPressed) {
+         speedmY=  -1;
+       monkeyY=monkeyY+  speedmY;
+         speedmY=0;
+     //armY1=20; armY2=50;
+     int temp=armY1;
+     armY1=armY2;
+     armY2=temp;
+     }else {speedmY=0;}
+     if (key == 'd'&& keyPressed)  {
+         speedmY=1;
+     monkeyY=monkeyY+  speedmY;
+       speedmY=0;
+     //armY1=50; armY2=20;
+     int temp=armY1;
+     armY1=armY2;
+     armY2=temp;
+     
+     
+     }else {speedmY=0;}
+     
+
+}
+ }
+
+class Flock{
+   float birdX;
+   float birdY;
+   int bX1;
+  int bX2;
+   
+  Flock () {
+    birdX=horizon;
+    birdY=random(0,109);
+   // bX1=;
+    //bX2=;
+   
+    }
+    
+  void drawBirds() {
+    
+    fill(139,185,179);
+     
+    triangle(birdX,birdY,birdX+40,birdY+20,birdX,birdY+40);
+    
+    triangle(birdX+50,birdY+20,birdX+90,birdY+40, birdX+50,birdY+60);
+    
+    triangle(birdX+110,birdY+40,birdX+150,birdY+60,birdX+110,birdY+80);
+    
+    triangle(birdX+50,birdY+70,birdX+90,birdY+90,birdX+50,birdY+110); 
+    
+    triangle(birdX, birdY+90, birdX+40, birdY+110,birdX, birdY+130);
+    
+    
+ }
+ 
+ void moveBirds() {
+   
+   birdX=birdX+random(0,5);
+}
+ }
